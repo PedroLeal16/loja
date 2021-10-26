@@ -39,11 +39,13 @@ public class Produtos {
     }
 
     public Produtos(String titulo, double preco, String descricao, Categoria categoria, String urlImagem) {
+
         this.titulo = titulo;
         this.preco = preco;
         this.descricao = descricao;
         this.categoria = categoria;
         this.urlImagem = urlImagem;
+        
     }
  
 }

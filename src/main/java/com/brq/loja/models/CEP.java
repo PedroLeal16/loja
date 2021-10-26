@@ -1,6 +1,8 @@
 package com.brq.loja.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -8,11 +10,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_usuarioCEP")
+@Table(name = "tb_cep")
 public class CEP {
 
-    @Getter @Id
-    private Long cepUsuario;
+    @Getter @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Getter @Setter
+    private String cepUsuario;
 
     @Getter @Setter
     private String estado;
@@ -35,16 +40,17 @@ public class CEP {
     public CEP() {
     }
 
-    public CEP(Long cepUsuario, String estado, String cidade, String bairro, String ruaAvenida, int numero,
-            String dadosAdicionais) {
-
-        this.cepUsuario = cepUsuario;
+    public CEP(String cep, String estado, String cidade, String bairro, String ruaAvenida,
+    int numero, String dadosAdicionais) {
+        
+        this.cepUsuario = cep;
         this.estado = estado;
         this.cidade = cidade;
         this.bairro = bairro;
         this.ruaAvenida = ruaAvenida;
         this.numero = numero;
         this.dadosAdicionais = dadosAdicionais;
+
     }
 
 }
