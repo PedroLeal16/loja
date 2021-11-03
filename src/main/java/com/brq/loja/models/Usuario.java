@@ -16,30 +16,37 @@ import lombok.Setter;
 @Table(name = "tb_usuario")
 public class Usuario {
     
-    @Getter @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String name;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String telefone;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String cpfCnpj;
 
-    @Getter @Setter @OneToMany
+    @Getter
+    @Setter
+    @OneToMany
     private List<CEP> ceps;
 
     public Usuario() {
     }
 
-    public Usuario(String name, String telefone, String cpfCnpj, List<CEP> ceps) {
+    public Usuario(String name, String telefone, String cpfCnpj, CEP cep) {
 
         this.name = name;
         this.telefone = telefone;
         this.cpfCnpj = cpfCnpj;
-        this.ceps = ceps;
+        this.ceps.add(cep);
         
     }
 

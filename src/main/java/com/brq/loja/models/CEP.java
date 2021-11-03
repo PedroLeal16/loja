@@ -13,28 +13,37 @@ import lombok.Setter;
 @Table(name = "tb_cep")
 public class CEP {
 
-    @Getter @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String cepUsuario;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String estado;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String cidade;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String bairro;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String ruaAvenida;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private int numero;
     
-    @Getter @Setter
+    @Getter
+    @Setter
     private String dadosAdicionais;
    
     public CEP() {

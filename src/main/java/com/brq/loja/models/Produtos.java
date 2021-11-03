@@ -16,23 +16,31 @@ import lombok.Setter;
 @Table(name = "tb_produtos")
 public class Produtos {
 
-    @Getter @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String titulo;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private double preco;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String descricao;
 
-    @Getter @Setter @ManyToOne(cascade = CascadeType.ALL)
+    @Getter
+    @Setter 
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "categoriaId")
     private Categoria categoria;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String urlImagem;
 
     public Produtos() {

@@ -14,11 +14,14 @@ import lombok.Setter;
 @Table(name = "tb_categoria")
 public class Categoria {
 
-    @Getter @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter 
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "categoriaId")
     private Long id;
 
-    @Getter @Setter
+    @Getter 
+    @Setter
     private String nome;
 
     public Categoria() {
