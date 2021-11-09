@@ -15,11 +15,22 @@ public class CategoriaService {
     @Autowired
     CategoriaRepository repository;
 
-    public Categoria buscar(Long id) {
+    public Categoria buscar(Long id) throws Exception {
 
-        Categoria categoria = repository.getById(id);
+        try {
+            
+            Categoria categoria = repository.getById(id);
 
-        return categoria;
+            if (categoria.getId() == null) throw new Exception();
+    
+            return categoria;
+
+        } catch (Exception e) {
+        
+            throw new Exception("Não foi possivel encontrar a categoria!");
+            
+        }
+
     }
 
     public Categoria compararCategoria(CategoriaRequest cr) {

@@ -59,22 +59,40 @@ public class ProdutoController {
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<String> atualizar(@PathVariable Long id, @RequestBody ProdutosRequest pr) {
 
-        Produtos p = service.atualizar(id, pr);
+        try {
+            
+            Produtos p = service.atualizar(id, pr);
+    
+            service.salvar(p);
+    
+            s = "Produto atualizado com sucesso!";
+    
+            return ResponseEntity.status(HttpStatus.OK).body(s);
 
-        service.salvar(p);
 
-        s = "Produto atualizado com sucesso!";
+        } catch (Exception e) {
+            
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage() + " Produto não atualizado!");
+            
+        }
 
-        return ResponseEntity.status(HttpStatus.OK).body(s);
         
     }
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletar(@PathVariable Long id) {
         
-        s = service.deletar(id);
+        try {
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(s);
+            s = service.deletar(id);
+    
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(s);
+            
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage() + " Não foi possivel deletar o produto!");
+
+        }
 
     }
     

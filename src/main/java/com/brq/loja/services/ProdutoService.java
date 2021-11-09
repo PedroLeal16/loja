@@ -21,43 +21,80 @@ public class ProdutoService {
     @Autowired
     CategoriaService categoriaService;
 
-    public String salvar(Produtos produto) {
+    public String salvar(Produtos produto) throws Exception {
 
-        repostory.save(produto);
+        try {
+            
+            repostory.save(produto);
+    
+            return "Cadastro de Produto feito com sucesso!";
 
-        return "Cadastro de Produto feito com sucesso!";
+        } catch (Exception e) {
+            
+            throw new Exception("Não foi possivel salvar o produto!");
+
+        }
+
         
     }
 
-    public Produtos buscaProduto(Long id) {
+    public Produtos buscaProduto(Long id) throws Exception {
 
-        Produtos p = repostory.getById(id);
+        try {
+            
+            Produtos p = repostory.getById(id);
 
-        return p;
+            if (p.getId() == null) throw new Exception();
+    
+            return p;
+
+
+        } catch (Exception e) {
+            
+            throw new Exception("Não foi possivel encontrar o produto!");
+
+        }
         
     }
 
-    public Produtos atualizar(Long id, ProdutosRequest pr) {
+    public Produtos atualizar(Long id, ProdutosRequest pr) throws Exception {
 
-        Produtos p = buscaProduto(id);
+        try {
+            
+            Produtos p = buscaProduto(id);
+    
+            Categoria categoria = categoriaService.buscar(pr.getCategoria().getId());
+    
+            p.setCategoria(categoria);
+            p.setDescricao(pr.getDescricao());
+            p.setPreco(pr.getPreco());
+            p.setTitulo(pr.getTitulo());
+            p.setUrlImagem(pr.getUrlImagem());
+    
+            return p;
 
-        Categoria categoria = categoriaService.buscar(pr.getCategoria().getId());
+        } catch (Exception e) {
+            
+            throw new Exception(e.getMessage());
 
-        p.setCategoria(categoria);
-        p.setDescricao(pr.getDescricao());
-        p.setPreco(pr.getPreco());
-        p.setTitulo(pr.getTitulo());
-        p.setUrlImagem(pr.getUrlImagem());
+        }
 
-        return p;
 
     }
 
-    public String deletar(Long id) {
+    public String deletar(Long id) throws Exception {
 
-        repostory.deleteById(id);
+        try {
+            
+            repostory.deleteById(id);
+    
+            return "Produto deletado com sucesso!";
 
-        return "Produto deletado com sucesso!";
+        } catch (Exception e) {
+        
+            throw new Exception("Id não encontrado!");
+            
+        }
     }
 
     public Produtos criaProduto(@Valid ProdutosRequest pr, Categoria categoria) {
@@ -73,16 +110,16 @@ public class ProdutoService {
 
         try {
             
-            String s2 = pr.getTitulo().trim().toUpperCase();
+            String s2 = pr.getTitulo().trim();
             List<Produtos> produtos = repostory.findAll();
     
             if (!produtos.isEmpty()) {
     
                 for (Produtos p : produtos) {
     
-                    String s1 = p.getTitulo().trim().toUpperCase();
+                    String s1 = p.getTitulo().trim();
     
-                    if (s1.equals(s2)) throw new Exception();
+                    if (s1.equalsIgnoreCase(s2)) throw new Exception();
     
                 }
                 
