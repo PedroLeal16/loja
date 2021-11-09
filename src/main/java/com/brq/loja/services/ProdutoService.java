@@ -1,5 +1,9 @@
 package com.brq.loja.services;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import com.brq.loja.models.Categoria;
 import com.brq.loja.models.Produtos;
 import com.brq.loja.models.request.ProdutosRequest;
@@ -21,7 +25,7 @@ public class ProdutoService {
 
         repostory.save(produto);
 
-        return "Cadastro feito com sucesso";
+        return "Cadastro de Produto feito com sucesso!";
         
     }
 
@@ -53,7 +57,43 @@ public class ProdutoService {
 
         repostory.deleteById(id);
 
-        return "Produto deletado com sucesso";
+        return "Produto deletado com sucesso!";
+    }
+
+    public Produtos criaProduto(@Valid ProdutosRequest pr, Categoria categoria) {
+   
+        Produtos produto = new Produtos(pr.getTitulo(), pr.getPreco(), pr.getDescricao(),
+        categoria, pr.getUrlImagem());
+
+        return produto;
+   
+    }
+
+    public void validaProduto(ProdutosRequest pr) throws Exception {
+
+        try {
+            
+            String s2 = pr.getTitulo().trim().toUpperCase();
+            List<Produtos> produtos = repostory.findAll();
+    
+            if (!produtos.isEmpty()) {
+    
+                for (Produtos p : produtos) {
+    
+                    String s1 = p.getTitulo().trim().toUpperCase();
+    
+                    if (s1.equals(s2)) throw new Exception();
+    
+                }
+                
+            }
+
+        } catch (Exception e) {
+            
+            throw new Exception("Titulo ja em uso!");
+
+        }
+
     }
 
 }

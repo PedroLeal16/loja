@@ -1,8 +1,11 @@
 package com.brq.loja.controllers;
 
+import javax.validation.Valid;
+
 import com.brq.loja.models.Categoria;
 import com.brq.loja.models.Produtos;
 import com.brq.loja.models.request.ProdutosRequest;
+import com.brq.loja.services.CategoriaService;
 import com.brq.loja.services.ProdutoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +26,34 @@ public class ProdutoController {
     @Autowired
     ProdutoService service;
 
+    @Autowired
+    CategoriaService categoriaService;
+
     String s;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody ProdutosRequest pr) {
+    public ResponseEntity<String> cadastrar(@Valid @RequestBody ProdutosRequest pr) {
 
-        Categoria categoria = new Categoria(pr.getCategoria().getNome());
+        try {
 
-        Produtos produto = new Produtos(pr.getTitulo(), pr.getPreco(), pr.getDescricao(),
-        categoria, pr.getUrlImagem());
+            categoriaService.validaCategoria(pr.getCategoria());
+            
+            Categoria categoria = categoriaService.compararCategoria(pr.getCategoria());
 
-        s = service.salvar(produto);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(s);
+            service.validaProduto(pr);
+    
+            Produtos produto = service.criaProduto(pr, categoria);
+    
+            s = service.salvar(produto);
+    
+            return ResponseEntity.status(HttpStatus.CREATED).body(s);
+            
+        } catch (Exception e) {
         
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        
+        }
+
     }
 
     @PutMapping("/atualizar/{id}")

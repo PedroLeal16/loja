@@ -1,5 +1,7 @@
 package com.brq.loja.models;
 
+import java.math.BigDecimal;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +29,7 @@ public class Produtos {
 
     @Getter
     @Setter
-    private double preco;
+    private BigDecimal preco;
 
     @Getter
     @Setter
@@ -46,10 +48,10 @@ public class Produtos {
     public Produtos() {
     }
 
-    public Produtos(String titulo, double preco, String descricao, Categoria categoria, String urlImagem) {
+    public Produtos(String titulo, BigDecimal bigDecimal, String descricao, Categoria categoria, String urlImagem) {
 
         this.titulo = titulo;
-        this.preco = preco;
+        this.preco = bigDecimal;
         this.descricao = descricao;
         this.categoria = categoria;
         this.urlImagem = urlImagem;
