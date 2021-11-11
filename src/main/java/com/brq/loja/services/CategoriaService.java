@@ -35,16 +35,16 @@ public class CategoriaService {
 
     public Categoria compararCategoria(CategoriaRequest cr) {
 
-        String s2 = cr.getNome().toUpperCase().trim();
+        String s2 = cr.getNome().trim();
         List<Categoria> categorias = repository.findAll();
 
         if (!categorias.isEmpty()) {
 
             for (Categoria categoria : categorias) {
 
-                String s1 = categoria.getNome().toUpperCase().trim();
+                String s1 = categoria.getNome().trim();
 
-                if (s1.equals(s2)) return categoria;
+                if (s1.equalsIgnoreCase(s2)) return categoria;
                 
             }
             

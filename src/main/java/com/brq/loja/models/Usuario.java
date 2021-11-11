@@ -50,4 +50,12 @@ public class Usuario {
         
     }
 
+    public Usuario(String name, String telefone, String cpfCnpj) {
+
+        this.name = name;
+        this.telefone = telefone;
+        this.cpfCnpj = cpfCnpj;
+
+    }
+
 }

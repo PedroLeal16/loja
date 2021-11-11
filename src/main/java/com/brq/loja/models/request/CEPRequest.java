@@ -7,6 +7,10 @@ public class CEPRequest {
 
     @Getter
     @Setter
+    private Long idUsuario;
+
+    @Getter
+    @Setter
     private String cepUsuario;
 
     @Getter
